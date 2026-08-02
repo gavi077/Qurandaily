@@ -320,6 +320,35 @@ button{cursor:pointer}
   .today-row .primary{padding-left:13px!important;padding-right:13px!important}
 }
 
+
+/* ===== Quran typography restored from MVP v2 ===== */
+.ayah{
+  direction:rtl;
+  font-weight:400!important;
+  line-height:2.15!important;
+  letter-spacing:0!important;
+}
+.ayah.madani{
+  font-family:"KFGQPC Uthmanic Script HAFS","Amiri Quran",serif!important;
+  font-size:29px!important;
+  font-weight:400!important;
+}
+.ayah.amiri{
+  font-family:"Amiri Quran",serif!important;
+  font-size:30px!important;
+  font-weight:400!important;
+}
+.ayah.naskh{
+  font-family:"Scheherazade New","Noto Naskh Arabic",serif!important;
+  font-size:31px!important;
+  font-weight:400!important;
+}
+@media(max-width:420px){
+  .ayah.madani{font-size:28px!important}
+  .ayah.amiri{font-size:29px!important}
+  .ayah.naskh{font-size:30px!important}
+}
+
 </style>
 </head>
 <body>
@@ -387,6 +416,14 @@ button{cursor:pointer}
   <div class="controls">
     <div class="field"><label>Повторов аята</label><select id="repeatSel"><option>1</option><option>3</option><option selected>5</option><option>7</option><option>10</option><option>15</option></select></div>
     <div class="field"><label>Пауза</label><select id="pauseSel"><option value="0">Нет</option><option value="2">2 сек</option><option value="3">3 сек</option><option value="5" selected>5 сек</option><option value="10">10 сек</option></select></div>
+  </div>
+  <div class="field" style="margin:12px 0">
+    <label>Шрифт Корана</label>
+    <select id="fontSel">
+      <option value="madani" selected>Мединская пропись</option>
+      <option value="amiri">Amiri Quran</option>
+      <option value="naskh">Тонкий насх</option>
+    </select>
   </div>
 <div class="ayah-box">
     <div class="ayah-meta" id="ayahMeta">Загрузка…</div>
@@ -592,7 +629,7 @@ function renderAyah(){
  document.getElementById('ayahMeta').textContent=`${currentSurah?currentSurah.ru:''} · аят ${currentAyah}`;
  const ay=document.getElementById('ayahText');
  ay.textContent=a?a.text:'Текст аята загружается из проверенного источника';
- ay.className='ayah madani'+(ay.classList.contains('hidden')?' hidden':'');
+ ay.className='ayah '+state.font+(ay.classList.contains('hidden')?' hidden':'');
  const tr=document.getElementById('translationText');
  tr.textContent=a?.translation||'';
  tr.classList.toggle('show',!!state.showTranslation && !!a?.translation);
@@ -748,6 +785,18 @@ state.inlineTipHidden=!!state.inlineTipHidden;
 state.showTranslation=state.showTranslation!==false;
 state.translationEdition=state.translationEdition||"ru.kuliev";
 save();
+
+state.font=state.font||"madani";
+const fontSel=document.getElementById("fontSel");
+if(fontSel){
+  fontSel.value=state.font;
+  fontSel.addEventListener("change",e=>{
+    state.font=e.target.value;
+    save();
+    renderAyah();
+  });
+}
+
 
 function syncTranslationControls(){
  document.querySelectorAll(".translation-check").forEach(c=>{c.checked=state.showTranslation;c.onchange=()=>{
