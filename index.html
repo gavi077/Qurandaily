@@ -7,7 +7,7 @@
 <meta name="theme-color" content="#08120f">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Amiri+Quran&family=Noto+Naskh+Arabic:wght@400;500;600&family=Scheherazade+New:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#07110e;--bg2:#0c1915;--panel:#101e19;--panel2:#13241e;
@@ -106,6 +106,151 @@ button{cursor:pointer}
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:92px;background:#1b2a23;border:1px solid var(--line);color:#e4d3b4;padding:11px 16px;border-radius:14px;z-index:99;display:none;max-width:90%;text-align:center}
 .toast.show{display:block}
 @media(max-width:420px){.logo{font-size:46px}.ayah{font-size:34px}.grid3{gap:6px}.mini{padding:12px 5px}}
+
+/* ===== EveryAyah v2 — visual system closer to supplied references ===== */
+:root{--gold:#ad8143;--gold2:#d1b16d;--ink:#eee1c5;--paper:#cfb883}
+.hero{
+ background:
+   linear-gradient(90deg,rgba(23,14,8,.90),transparent 15% 85%,rgba(23,14,8,.90)),
+   radial-gradient(ellipse at 50% 55%,rgba(244,194,100,.42) 0 8%,rgba(178,119,43,.14) 24%,transparent 48%),
+   linear-gradient(180deg,#030907,#07120e 54%,#080e0b)!important;
+ border:1px solid rgba(196,151,77,.50)!important;
+ box-shadow:inset 0 0 0 5px rgba(83,55,27,.20),0 24px 70px #000!important
+}
+.ref-arch{position:absolute;z-index:1;left:50%;top:24%;transform:translateX(-50%);width:70%;height:51%;
+ border:2px solid rgba(188,143,70,.44);border-bottom:0;border-radius:50% 50% 0 0/27% 27% 0 0;
+ box-shadow:0 0 0 9px rgba(49,31,17,.32),0 0 0 11px rgba(170,126,59,.10),inset 0 0 65px rgba(0,0,0,.55);
+ background:radial-gradient(ellipse at 50% 58%,rgba(255,216,132,.34),rgba(152,95,32,.08) 38%,rgba(4,9,7,.40) 70%)}
+.ref-arch:before,.ref-arch:after{content:"";position:absolute;top:28%;bottom:0;width:15%;
+ background:linear-gradient(90deg,#160f0a,#3a2616 36%,#1b120b 70%,#090806);border:1px solid rgba(184,139,68,.18)}
+.ref-arch:before{left:-14%}.ref-arch:after{right:-14%}
+.light-path{position:absolute;z-index:1;left:50%;top:56%;transform:translateX(-50%);width:46%;height:30%;
+ clip-path:polygon(35% 0,65% 0,100% 100%,0 100%);
+ background:linear-gradient(180deg,rgba(255,215,125,.24),rgba(188,122,43,.08),transparent)}
+.lantern{position:absolute;z-index:6;top:43%;width:42px;height:88px}
+.lantern-left{left:7%}.lantern-right{right:7%}
+.lantern:before{content:"";position:absolute;left:19px;top:-29px;width:3px;height:30px;background:linear-gradient(#5a3c20,#b88745)}
+.lantern i{position:absolute;left:5px;top:8px;width:32px;height:49px;clip-path:polygon(18% 0,82% 0,100% 28%,78% 100%,22% 100%,0 28%);
+ border:2px solid #a9783d;background:radial-gradient(circle at 50% 46%,rgba(255,223,150,.82),rgba(169,105,36,.28) 49%,rgba(7,13,10,.82) 75%);
+ box-shadow:0 0 32px 10px rgba(233,171,73,.21)}
+.lantern i:after{content:"✦";position:absolute;left:0;right:0;top:13px;text-align:center;color:#765022;font-style:normal}
+.quran-stand{top:60%!important;width:102px!important;height:82px!important;font-size:0!important;background:none!important}
+.quran-stand:before,.quran-stand:after{content:"";position:absolute;top:0;width:49%;height:43px;border:1px solid #70512d;
+ background:linear-gradient(160deg,#dfcf9f,#9c8050);box-shadow:0 13px 20px rgba(0,0,0,.38)}
+.quran-stand:before{left:1px;transform:skewY(8deg);border-radius:4px 0 3px 12px}
+.quran-stand:after{right:1px;transform:skewY(-8deg);border-radius:0 4px 12px 3px}
+.primary{border-radius:6px!important;background:linear-gradient(180deg,#c6a260,#92703b)!important}
+.arch-card,.player,.field,.surah,.reciter{border-radius:7px!important}
+.arch-card:after{content:"✦";position:absolute;left:50%;top:-9px;transform:translateX(-50%);color:#a77d41;background:#07110e;padding:0 8px}
+.tip{padding-left:70px!important;border-radius:5px!important;background:
+ repeating-linear-gradient(0deg,rgba(78,54,27,.025) 0 1px,transparent 1px 4px),
+ linear-gradient(135deg,#d8c397,#aa8752)!important}
+.tip-lamp{position:absolute;left:18px;top:22px;width:34px;height:52px}
+.tip-lamp:before{content:"";position:absolute;left:8px;top:8px;width:20px;height:31px;clip-path:polygon(20% 0,80% 0,100% 27%,78% 100%,22% 100%,0 27%);
+ border:2px solid #745023;background:radial-gradient(circle,#f2ce83,#ae7938 48%,#54361c)}
+.tip-lamp:after{content:"";position:absolute;inset:-15px;border-radius:50%;background:radial-gradient(circle,rgba(255,207,111,.31),transparent 68%)}
+.tip-hint{font-size:10px;color:#655538;margin-top:9px}
+.ayah{font-weight:400!important;font-size:30px!important;line-height:2.15!important}
+.ayah.madani{font-family:"KFGQPC Uthmanic Script HAFS","Amiri Quran",serif!important;font-size:29px!important;font-weight:400!important}
+.ayah.amiri{font-family:"Amiri Quran",serif!important;font-size:30px!important;font-weight:400!important}
+.ayah.naskh{font-family:"Scheherazade New","Noto Naskh Arabic",serif!important;font-size:31px!important;font-weight:400!important}
+.ar-small{font-family:"Amiri Quran","Noto Naskh Arabic",serif!important;font-weight:400!important}
+.bottom{background:rgba(3,10,7,.97)!important}
+.nav span{border:1px solid rgba(176,134,67,.24);border-radius:5px;padding:5px}
+
+
+/* ===== EveryAyah v3 refinements ===== */
+
+/* Cleaner Quran text: one thin mushaf-like style only */
+.ayah,.ayah.madani{
+  font-family:"KFGQPC Uthmanic Script HAFS","Amiri Quran",serif!important;
+  font-size:28px!important;
+  line-height:2.05!important;
+  font-weight:400!important;
+  letter-spacing:0!important;
+}
+.ayah.amiri,.ayah.naskh{font-family:"KFGQPC Uthmanic Script HAFS","Amiri Quran",serif!important;font-size:28px!important;font-weight:400!important}
+
+/* Fix oversized numeral colliding with caption */
+.today-card{padding-top:25px!important}
+.today-row{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-top:11px}
+.today-count-wrap{min-width:112px;display:grid;grid-template-columns:auto 1fr;align-items:end;column-gap:9px}
+.big-number.compact-number{
+  font-family:Inter,system-ui,sans-serif!important;
+  font-size:43px!important;font-weight:600!important;line-height:.88!important;
+  letter-spacing:-.06em!important;color:#d2ad67!important;margin:0!important
+}
+.today-caption{font-size:15px;line-height:1.15;color:#e0d4bd;white-space:nowrap;padding-bottom:2px}
+
+/* Remove decorative star intersecting card line */
+.arch-card:after{display:none!important}
+
+/* Advice card close */
+.tip-close{position:absolute;right:12px;top:10px;z-index:5;border:0;background:rgba(55,39,20,.10);color:#5f4e31;
+ width:30px;height:30px;border-radius:50%;font-size:20px;line-height:1}
+.restore-tip{width:100%;margin-top:14px;padding:12px;border:1px solid rgba(190,149,78,.35);border-radius:8px;
+ background:#0d1b16;color:#c9a96b}
+
+/* Modern, brighter surah catalogue while retaining Eastern detail */
+.surah-modern-shell{
+  margin-top:15px;padding:14px;border-radius:22px;
+  background:linear-gradient(180deg,#f1e8d6,#e7dac1);
+  box-shadow:0 22px 60px rgba(0,0,0,.32),inset 0 0 0 1px rgba(117,85,41,.20);
+  color:#2c271e;position:relative;overflow:hidden
+}
+.surah-modern-shell:before{
+ content:"";position:absolute;inset:0;pointer-events:none;opacity:.17;
+ background-image:radial-gradient(circle at 20px 20px,#8e6939 1px,transparent 1.5px);
+ background-size:38px 38px
+}
+.surah-toolbar{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:10px;
+ padding:8px 4px 14px;border-bottom:1px solid rgba(105,78,42,.18);margin-bottom:10px}
+.check-line{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600}
+.check-line input{accent-color:#aa7f45;width:17px;height:17px}
+.translation-edition{border:1px solid rgba(121,90,47,.28);border-radius:10px;background:rgba(255,255,255,.50);
+ color:#443724;padding:8px 9px;max-width:132px}
+.surah-list{position:relative;z-index:2;gap:8px!important}
+.surah-card{background:rgba(255,255,255,.62);border:1px solid rgba(118,87,46,.20);border-radius:14px;
+ box-shadow:0 5px 14px rgba(72,48,23,.06);overflow:hidden}
+.surah-head{width:100%;display:grid;grid-template-columns:38px 1fr auto 20px;gap:10px;align-items:center;
+ border:0;background:transparent;color:#2c271e;text-align:left;padding:13px 12px}
+.surah-head:hover{background:rgba(255,255,255,.36)}
+.surah-num-modern{width:34px;height:34px;border:1px solid rgba(157,112,52,.35);border-radius:10px;display:grid;place-items:center;
+ font-size:12px;font-weight:700;color:#946b37;background:#f8f1e3}
+.surah-main b{display:block;font-family:"Cormorant Garamond",serif;font-size:20px;line-height:1;color:#2b251b}
+.surah-main small{color:#80735f;font-size:10px}
+.surah-arabic{font-family:"Amiri Quran",serif;font-size:20px;color:#7f5c31;white-space:nowrap}
+.chev{color:#9d7541;transition:.2s}.surah-card.open .chev{transform:rotate(180deg)}
+.ayah-picker{display:none;padding:2px 12px 13px;border-top:1px solid rgba(115,85,46,.12)}
+.surah-card.open .ayah-picker{display:block}
+.ayah-picker-title{display:flex;justify-content:space-between;align-items:center;color:#75664f;font-size:11px;margin:10px 0}
+.ayah-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.ayah-pick{aspect-ratio:1;border:1px solid rgba(137,99,49,.23);background:#fffaf0;color:#57452f;border-radius:8px;
+ font-size:11px;font-weight:700}
+.ayah-pick.current{background:#a9824d;color:white;border-color:#a9824d}
+.surah-start{border:0;background:transparent;color:#8b6535;font-size:11px;font-weight:700}
+
+/* Translation panel */
+.translation-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:11px 0;
+ border:1px solid rgba(190,148,74,.30);border-radius:10px;padding:9px 11px;background:#0d1b16}
+.translation-bar .check-line{color:#d7c39c}
+.translation-bar .translation-edition{background:#13251e;color:#ddc89d;border-color:rgba(188,146,74,.28)}
+.translation-text{
+ display:none;width:100%;margin-top:22px;padding-top:18px;border-top:1px solid rgba(197,158,89,.16);
+ color:#c8bca7;font-family:Georgia,"Times New Roman",serif;font-size:16px;line-height:1.68;text-align:left;direction:ltr
+}
+.translation-text.show{display:block}
+.ayah-box{flex-direction:column!important}
+
+/* On narrow phones keep everything compact */
+@media(max-width:420px){
+ .today-row{gap:10px}.today-count-wrap{min-width:94px;column-gap:7px}
+ .big-number.compact-number{font-size:38px!important}.today-caption{font-size:13px}
+ .ayah-grid{grid-template-columns:repeat(6,1fr)}
+ .surah-head{grid-template-columns:34px 1fr auto 16px;gap:7px;padding:12px 9px}
+ .surah-arabic{font-size:18px}
+}
+
 </style>
 </head>
 <body>
@@ -113,12 +258,16 @@ button{cursor:pointer}
 
 <section id="cover" class="screen active">
   <div class="hero">
+    <div class="ref-arch"></div>
+    <div class="light-path"></div>
+    <div class="lantern lantern-left"><i></i></div>
+    <div class="lantern lantern-right"><i></i></div>
     <div class="heroTop">
       <div class="logo brand">EveryAyah</div>
       <div class="tag">Аят за аятом</div>
       <div class="juz">30-й джуз · Juz ‘Amma</div>
     </div>
-    <div class="quran-stand">۞</div>
+    <div class="quran-stand" aria-label="Открытый мусхаф"></div>
     <div class="heroBottom">
       <button class="primary wide" onclick="go('today')">ПРОДОЛЖИТЬ</button>
       <div class="notice" id="resumeText">Спокойное возвращение к Корану</div>
@@ -128,24 +277,40 @@ button{cursor:pointer}
 
 <section id="today" class="screen">
   <div class="header"><div><small>EveryAyah</small><h1>Сегодня</h1></div><div class="gold">✦</div></div>
-  <div class="arch-card">
+  <div class="arch-card today-card">
     <div class="eyebrow">Новый материал</div>
-    <div class="row"><div><div class="big-number" id="todayCount">3</div><div>аята сегодня</div></div><button class="primary" onclick="go('surahs')">НАЧАТЬ</button></div>
+    <div class="today-row">
+      <div class="today-count-wrap"><div class="big-number compact-number" id="todayCount">3</div><div class="today-caption">аята сегодня</div></div>
+      <button class="primary" onclick="go('surahs')">НАЧАТЬ</button>
+    </div>
   </div>
   <div class="grid3">
     <div class="mini"><b id="revCount">0</b><span class="muted">повторить</span></div>
     <div class="mini"><b id="surahProgress">0</b><span class="muted">сур начато</span></div>
     <div class="mini"><b id="juzProgress">0%</b><span class="muted">30-й джуз</span></div>
   </div>
-  <div class="tip" id="inlineTip">
-    <h3>Совет хифза</h3>
-    <div>После нового аята обязательно соединяйте его с предыдущим — так память удерживает не только слова, но и переход.</div>
+  <div class="tip" id="inlineTip" onclick="rotateInlineTip()">
+    <button class="tip-close" onclick="event.stopPropagation();hideInlineTip()" aria-label="Скрыть совет">×</button>
+    <div class="tip-lamp"></div>
+    <h3 id="inlineTipTitle">Совет хифза</h3>
+    <div id="inlineTipText">После нового аята обязательно соединяйте его с предыдущим — так память удерживает не только слова, но и переход.</div>
+    <div class="tip-hint">Меняется автоматически · нажмите для следующего</div>
   </div>
+  <button id="inlineTipRestore" class="restore-tip" onclick="showInlineTip()" style="display:none">✦ Показать совет хифза</button>
 </section>
 
 <section id="surahs" class="screen">
   <div class="header"><div><small>30-й джуз</small><h1>Выберите суру</h1></div><button class="smallbtn" onclick="showSettings()">⚙</button></div>
-  <div class="surah-list" id="surahList"></div>
+  <div class="surah-modern-shell">
+    <div class="surah-toolbar">
+      <label class="check-line"><input type="checkbox" class="translation-check"> <span>Показывать перевод</span></label>
+      <select class="translation-edition">
+        <option value="ru.kuliev">Э. Кулиев</option>
+        <option value="ru.abuadel">Абу Адель</option>
+      </select>
+    </div>
+    <div class="surah-list" id="surahList"></div>
+  </div>
 </section>
 
 <section id="learn" class="screen">
@@ -154,7 +319,7 @@ button{cursor:pointer}
     <div class="field"><label>Повторов аята</label><select id="repeatSel"><option>1</option><option>3</option><option selected>5</option><option>7</option><option>10</option><option>15</option></select></div>
     <div class="field"><label>Пауза</label><select id="pauseSel"><option value="0">Нет</option><option value="2">2 сек</option><option value="3">3 сек</option><option value="5" selected>5 сек</option><option value="10">10 сек</option></select></div>
   </div>
-  <div class="ayah-box">
+<div class="ayah-box">
     <div class="ayah-meta" id="ayahMeta">Загрузка…</div>
     <div class="ayah" id="ayahText">...</div>
   </div>
@@ -250,10 +415,10 @@ const FALLBACK=[
 ].map(x=>({number:x[0],ru:x[1],arabic:x[2],ayahs:x[3]}));
 
 const RECITERS=[
- {id:"luhaidan",name:"Мухаммад аль-Люхайдан",note:"Основной · цельные суры",type:"chapter"},
- {id:"alafasy",name:"Мишари Рашид аль-Афаси",note:"Основной · аят за аятом",folder:"Alafasy_128kbps",type:"ayah"},
+ {id:"alafasy",name:"Мишари Рашид аль-Афаси",note:"Основной",folder:"Alafasy_128kbps",type:"ayah"},
  {id:"husary",name:"Махмуд Халиль аль-Хусари",note:"Рекомендуется для хифза",folder:"Husary_128kbps",type:"ayah"},
- {id:"shatri",name:"Абу Бакр аш-Шатри",note:"Дополнительный",folder:"Abu_Bakr_Ash-Shaatree_128kbps",type:"ayah"},
+ {id:"minshawi",name:"Мухаммад Сиддик аль-Миншави",note:"Размеренное чтение",folder:"Minshawy_Murattal_128kbps",type:"ayah"},
+ {id:"sudais",name:"Абдуррахман ас-Судайс",note:"Дополнительный",folder:"Abdurrahmaan_As-Sudais_192kbps",type:"ayah"},
  {id:"basit",name:"Абдул-Басит Абдус-Самад",note:"Дополнительный",folder:"Abdul_Basit_Murattal_192kbps",type:"ayah"}
 ];
 const TIPS=[
@@ -271,7 +436,7 @@ const VIRTUES=[
 let surahs=[...FALLBACK], currentSurah=null,currentAyah=1,ayahData=[],playing=false,auto=false,repeatDone=0,sessionStarted=false;
 const audio=document.getElementById('audio');
 const state=JSON.parse(localStorage.getItem('everyayah_state')||'{}');
-state.reciter=state.reciter||'alafasy';state.sessions=state.sessions||0;state.progress=state.progress||{};state.lastSurah=state.lastSurah||114;state.lastAyah=state.lastAyah||1;
+state.reciter=state.reciter||'alafasy'; if(!RECITERS.some(r=>r.id===state.reciter)) state.reciter='alafasy';state.sessions=state.sessions||0;state.progress=state.progress||{};state.lastSurah=state.lastSurah||114;state.lastAyah=state.lastAyah||1;
 
 function save(){localStorage.setItem('everyayah_state',JSON.stringify(state));refreshStats()}
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600)}
@@ -287,11 +452,32 @@ function renderSurahs(){
  const el=document.getElementById('surahList');el.innerHTML='';
  surahs.forEach(s=>{
    const p=state.progress[s.number]||{};
-   const status=p.ayah?`Аят ${p.ayah}`:'Не начато';
-   const d=document.createElement('button');d.className='surah';d.style.color='inherit';d.style.textAlign='left';d.onclick=()=>openSurah(s.number);
-   d.innerHTML=`<div class="snum">${s.number}</div><div class="smeta"><b>${s.ru}</b><span class="muted">${s.ayahs} аятов</span></div><div class="ar-small">${s.arabic}</div><div class="badge">${status}</div>`;
-   el.appendChild(d);
+   const card=document.createElement('div');card.className='surah-card';
+   const current=(p.ayah||0);
+   const nums=Array.from({length:s.ayahs},(_,i)=>i+1).map(n =>
+      `<button class="ayah-pick ${n===current?'current':''}" onclick="event.stopPropagation();openSurahAt(${s.number},${n})">${n}</button>`).join('');
+   card.innerHTML=`
+     <button class="surah-head" onclick="toggleSurahCard(this)">
+       <div class="surah-num-modern">${s.number}</div>
+       <div class="surah-main"><b>${s.ru}</b><small>${s.ayahs} аятов${current?` · пройдено до ${current}`:''}</small></div>
+       <div class="surah-arabic">${s.arabic}</div>
+       <div class="chev">⌄</div>
+     </button>
+     <div class="ayah-picker">
+       <div class="ayah-picker-title"><span>Выберите аят</span><button class="surah-start" onclick="openSurahAt(${s.number},1)">Начать с 1-го</button></div>
+       <div class="ayah-grid">${nums}</div>
+     </div>`;
+   el.appendChild(card);
  })
+}
+function toggleSurahCard(btn){
+ const card=btn.closest('.surah-card');
+ document.querySelectorAll('.surah-card.open').forEach(x=>{if(x!==card)x.classList.remove('open')});
+ card.classList.toggle('open');
+}
+function openSurahAt(n,ayah){
+ state.pendingAyah=ayah;
+ openSurah(n);
 }
 function reciter(){return RECITERS.find(r=>r.id===state.reciter)||RECITERS[1]}
 function renderReciters(){
@@ -305,22 +491,42 @@ function renderReciters(){
 }
 async function openSurah(n){
  currentSurah=surahs.find(s=>s.number===n);
- currentAyah=(state.progress[n]&&state.progress[n].ayah)||1;
+ currentAyah=state.pendingAyah || (state.progress[n]&&state.progress[n].ayah) || 1;
+ state.pendingAyah=null;
  document.getElementById('learnSurahNo').textContent=`Сура ${n} · ${currentSurah.ayahs} аятов`;
  document.getElementById('learnSurahName').textContent=currentSurah.ru;
  go('learn');
  document.getElementById('ayahText').textContent='Загрузка текста из проверенного источника…';
+ document.getElementById('translationText').textContent='';
  try{
-   const r=await fetch(`https://api.alquran.cloud/v1/surah/${n}/quran-uthmani`);
-   const j=await r.json();
-   ayahData=j.data.ayahs.map(a=>({n:a.numberInSurah,text:a.text}));
- }catch(e){ayahData=[];toast('Не удалось загрузить текст. Проверьте интернет.')}
+   const [arRes,trRes]=await Promise.all([
+     fetch(`https://alquran.api.islamic.network/v1/surah/${n}/quran-uthmani`),
+     fetch(`https://alquran.api.islamic.network/v1/surah/${n}/${state.translationEdition}`)
+   ]);
+   const ar=await arRes.json(); const tr=await trRes.json();
+   const transMap=new Map((tr.data?.ayahs||[]).map(a=>[a.numberInSurah,a.text]));
+   ayahData=(ar.data?.ayahs||[]).map(a=>({n:a.numberInSurah,text:a.text,translation:transMap.get(a.numberInSurah)||''}));
+ }catch(e){
+   try{
+     const arRes=await fetch(`https://api.alquran.cloud/v1/surah/${n}/quran-uthmani`);
+     const ar=await arRes.json();
+     const trRes=await fetch(`https://api.alquran.cloud/v1/surah/${n}/${state.translationEdition}`);
+     const tr=await trRes.json();
+     const transMap=new Map((tr.data?.ayahs||[]).map(a=>[a.numberInSurah,a.text]));
+     ayahData=(ar.data?.ayahs||[]).map(a=>({n:a.numberInSurah,text:a.text,translation:transMap.get(a.numberInSurah)||''}));
+   }catch(e2){ayahData=[];toast('Не удалось загрузить текст. Проверьте интернет.')}
+ }
  renderAyah();loadAudio();
 }
 function renderAyah(){
  const a=ayahData.find(x=>x.n===currentAyah);
  document.getElementById('ayahMeta').textContent=`${currentSurah?currentSurah.ru:''} · аят ${currentAyah}`;
- document.getElementById('ayahText').textContent=a?a.text:'Текст аята загружается из проверенного источника';
+ const ay=document.getElementById('ayahText');
+ ay.textContent=a?a.text:'Текст аята загружается из проверенного источника';
+ ay.className='ayah madani'+(ay.classList.contains('hidden')?' hidden':'');
+ const tr=document.getElementById('translationText');
+ tr.textContent=a?.translation||'';
+ tr.classList.toggle('show',!!state.showTranslation && !!a?.translation);
  document.getElementById('repeatPill').textContent=`повтор ${repeatDone} / ${document.getElementById('repeatSel').value}`;
  document.getElementById('reciterLabel').textContent=reciter().name;
  state.lastSurah=currentSurah?.number||state.lastSurah;state.lastAyah=currentAyah;
@@ -339,7 +545,6 @@ function loadAudio(){
 }
 function togglePlay(){
  if(!currentSurah)return;
- if(reciter().type!=='ayah'){toast('Для Люхайдана в MVP подключён выбор, но режим «аят × N» включим после подтверждения стабильного ayah-by-ayah источника.');return}
  if(audio.paused){audio.play().catch(()=>toast('Не удалось запустить аудио. Проверьте интернет.'));}else audio.pause();
 }
 function toggleAyah(){document.getElementById('ayahText').classList.toggle('hidden')}
@@ -347,7 +552,6 @@ function prevAyah(){if(currentAyah>1){currentAyah--;loadAudio()}}
 function nextAyah(){if(currentSurah&&currentAyah<currentSurah.ayahs){currentAyah++;loadAudio()}else toast('Конец суры')}
 function startAuto(){
  if(!currentSurah)return;
- if(reciter().type!=='ayah'){toast('Для автоматического повторения выберите Аль-Афаси, Аль-Хусари, Аш-Шатри или Абдул-Басита.');return}
  auto=!auto;
  document.getElementById('autoBtn').textContent=auto?'ОСТАНОВИТЬ АВТОРЕЖИМ':'УЧИТЬ АВТОМАТИЧЕСКИ';
  if(auto){repeatDone=0;sessionStarted=true;audio.currentTime=0;audio.play().catch(()=>toast('Не удалось запустить аудио'))}else audio.pause();
@@ -425,6 +629,86 @@ fetch('https://api.alquran.cloud/v1/surah').then(r=>r.json()).then(j=>{
 }).catch(()=>renderSurahs());
 
 renderSurahs();renderReciters();refreshStats();
+
+const ROTATING_CARDS=[
+ {title:"Совет хифза",text:"После нового аята обязательно соединяйте его с предыдущим. Так укрепляются переходы внутри суры."},
+ {title:"Совет хифза",text:"Перед скрытием текста несколько секунд смотрите на расположение слов и окончание строки."},
+ {title:"Совет хифза",text:"Новый материал не должен вытеснять старый: сначала оживите вчерашние аяты."},
+ {title:"Совет хифза",text:"Если два места похожи по звучанию, отдельно закрепите именно место различия."},
+ {title:"Совет хифза",text:"Периодически начинайте уже выученную суру не только с первого аята."},
+ {title:"Совет хифза",text:"Использование одного и того же мусхафа помогает зрительной памяти удерживать расположение текста."},
+ {title:"Совет хифза",text:"Учите небольшой отрывок, затем несколько раз соединяйте конец предыдущего аята с началом следующего."},
+ {title:"Совет хифза",text:"После прослушивания закройте текст и попробуйте воспроизвести аят, прежде чем снова смотреть на страницу."},
+ {title:"Совет хифза",text:"Старые суры должны возвращаться в повторение даже тогда, когда вы уже учите новый материал."},
+ {title:"Совет хифза",text:"Если аят даётся тяжело, уменьшите объём занятия, но сохраните регулярность."},
+ {title:"Достоинство чтения",text:"В хадисе передано: лучший из мусульман — тот, кто изучает Коран и обучает ему.",source:"Сахих аль-Бухари, 5027"},
+ {title:"Достоинство чтения",text:"За чтение каждой буквы Книги Аллаха передана награда, умножаемая в десять раз.",source:"Джами‘ ат-Тирмизи, 2910"},
+ {title:"Достоинство чтения",text:"Коран станет заступником для тех, кто был связан с его чтением.",source:"Сахих Муслим, 804a"},
+ {title:"Поддержка",text:"Тому, кому чтение Корана даётся с трудом и кто продолжает стараться, в хадисе обещаны две награды.",source:"Аль-Бухари и Муслим; Рияд ас-Салихин, 994"},
+ {title:"Напоминание из Корана",text:"Коран велит читать откровение размеренно и отчётливо.",source:"Коран, 73:4"},
+ {title:"Напоминание из Корана",text:"Коран описан как руководство к самому прямому пути.",source:"Коран, 17:9"},
+ {title:"Напоминание из Корана",text:"В Коране похвально упомянуты те, кто читает Книгу Аллаха, совершает молитву и расходует из дарованного.",source:"Коран, 35:29–30"}
+];
+let inlineTipIndex=0;
+function rotateInlineTip(){
+ const c=ROTATING_CARDS[inlineTipIndex++ % ROTATING_CARDS.length];
+ const box=document.getElementById("inlineTipText");
+ if(!box || state.inlineTipHidden)return;
+ box.style.opacity="0";
+ setTimeout(()=>{document.getElementById("inlineTipTitle").textContent=c.title;box.textContent=c.text;box.style.opacity="1"},220);
+}
+function hideInlineTip(){
+ state.inlineTipHidden=true;save();
+ document.getElementById("inlineTip").style.display="none";
+ document.getElementById("inlineTipRestore").style.display="block";
+}
+function showInlineTip(){
+ state.inlineTipHidden=false;save();
+ document.getElementById("inlineTip").style.display="block";
+ document.getElementById("inlineTipRestore").style.display="none";
+ rotateInlineTip();
+}
+setInterval(rotateInlineTip,18000);
+
+state.opens=(state.opens||0)+1;
+state.cardCursor=state.cardCursor||0;
+state.snoozeUntil=state.snoozeUntil||0;
+state.inlineTipHidden=!!state.inlineTipHidden;
+state.showTranslation=state.showTranslation!==false;
+state.translationEdition=state.translationEdition||"ru.kuliev";
+save();
+
+function syncTranslationControls(){
+ document.querySelectorAll(".translation-check").forEach(c=>{c.checked=state.showTranslation;c.onchange=()=>{
+   state.showTranslation=c.checked;save();syncTranslationControls();if(currentSurah)renderAyah();
+ }});
+ document.querySelectorAll(".translation-edition").forEach(s=>{s.value=state.translationEdition;s.onchange=async()=>{
+   state.translationEdition=s.value;save();syncTranslationControls();
+   if(currentSurah) await openSurahAt(currentSurah.number,currentAyah);
+ }});
+}
+syncTranslationControls();
+if(state.inlineTipHidden)hideInlineTip(); else showInlineTip();
+
+function canScheduledCard(){
+ return Date.now()>state.snoozeUntil && audio.paused &&
+ !document.getElementById("learn").classList.contains("active") &&
+ !document.getElementById("modal").classList.contains("show");
+}
+function showScheduledCard(){
+ if(!canScheduledCard())return setTimeout(showScheduledCard,22000);
+ const c=ROTATING_CARDS[state.cardCursor++ % ROTATING_CARDS.length];save();
+ const src=c.source?`<div class="source">Источник: ${c.source}</div>`:"";
+ showSheet(`<button class="close" onclick="closeModal()">×</button><h2>${c.title}</h2><div class="paper">${c.text}${src}</div><div class="row" style="margin-top:14px"><button class="secondary" onclick="closeModal()">Закрыть</button><button class="secondary" onclick="snoozeAdvice(3)">Пауза 3 дня</button></div>`);
+}
+function snoozeAdvice(days){state.snoozeUntil=Date.now()+days*86400000;save();closeModal()}
+
+/* Two early appearances; then gradually rarer. Never interrupts Quran/audio. */
+if(Date.now()>state.snoozeUntil){
+ if(state.opens===1){setTimeout(showScheduledCard,15000);setTimeout(showScheduledCard,80000)}
+ else if(state.opens<=3){setTimeout(showScheduledCard,38000)}
+ else if(state.opens%4===0){setTimeout(showScheduledCard,55000)}
+}
 </script>
 </body>
 </html>
