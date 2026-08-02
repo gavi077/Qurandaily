@@ -58,7 +58,7 @@ button{cursor:pointer}
 .tip{background:
  linear-gradient(135deg,rgba(219,192,140,.94),rgba(160,125,67,.93));
  color:var(--paperInk);border-radius:18px;padding:18px 18px 16px;box-shadow:0 12px 30px rgba(0,0,0,.25);position:relative;margin-top:18px}
-.tip:before{content:"✦";position:absolute;right:16px;top:12px;font-size:26px;opacity:.4}
+.tip:before{content:"";position:absolute;right:16px;top:12px;font-size:26px;opacity:.4}
 .tip h3{font-family:"Cormorant Garamond",serif;font-size:24px;margin:0 0 8px}
 .surah-list{display:grid;gap:9px}
 .surah{display:flex;align-items:center;gap:12px;padding:14px;border:1px solid var(--line);background:linear-gradient(180deg,#102019,#0b1713);border-radius:16px}
@@ -133,7 +133,7 @@ button{cursor:pointer}
 .lantern i{position:absolute;left:5px;top:8px;width:32px;height:49px;clip-path:polygon(18% 0,82% 0,100% 28%,78% 100%,22% 100%,0 28%);
  border:2px solid #a9783d;background:radial-gradient(circle at 50% 46%,rgba(255,223,150,.82),rgba(169,105,36,.28) 49%,rgba(7,13,10,.82) 75%);
  box-shadow:0 0 32px 10px rgba(233,171,73,.21)}
-.lantern i:after{content:"✦";position:absolute;left:0;right:0;top:13px;text-align:center;color:#765022;font-style:normal}
+.lantern i:after{content:"";position:absolute;left:0;right:0;top:13px;text-align:center;color:#765022;font-style:normal}
 .quran-stand{top:60%!important;width:102px!important;height:82px!important;font-size:0!important;background:none!important}
 .quran-stand:before,.quran-stand:after{content:"";position:absolute;top:0;width:49%;height:43px;border:1px solid #70512d;
  background:linear-gradient(160deg,#dfcf9f,#9c8050);box-shadow:0 13px 20px rgba(0,0,0,.38)}
@@ -141,7 +141,7 @@ button{cursor:pointer}
 .quran-stand:after{right:1px;transform:skewY(-8deg);border-radius:0 4px 12px 3px}
 .primary{border-radius:6px!important;background:linear-gradient(180deg,#c6a260,#92703b)!important}
 .arch-card,.player,.field,.surah,.reciter{border-radius:7px!important}
-.arch-card:after{content:"✦";position:absolute;left:50%;top:-9px;transform:translateX(-50%);color:#a77d41;background:#07110e;padding:0 8px}
+.arch-card:after{content:"";position:absolute;left:50%;top:-9px;transform:translateX(-50%);color:#a77d41;background:#07110e;padding:0 8px}
 .tip{padding-left:70px!important;border-radius:5px!important;background:
  repeating-linear-gradient(0deg,rgba(78,54,27,.025) 0 1px,transparent 1px 4px),
  linear-gradient(135deg,#d8c397,#aa8752)!important}
@@ -251,6 +251,75 @@ button{cursor:pointer}
  .surah-arabic{font-size:18px}
 }
 
+
+/* ===== EveryAyah v4: modern light Quran catalogue ===== */
+.surah-modern-shell{
+  background:linear-gradient(180deg,#fbfaf6,#f2eee5)!important;
+  border:1px solid rgba(143,108,57,.14)!important;
+  box-shadow:0 18px 46px rgba(0,0,0,.24)!important;
+}
+.surah-modern-shell:before{
+  opacity:.08!important;
+  background-image:
+    linear-gradient(30deg,rgba(157,116,56,.32) 12%,transparent 12.5%,transparent 87%,rgba(157,116,56,.32) 87.5%),
+    linear-gradient(150deg,rgba(157,116,56,.32) 12%,transparent 12.5%,transparent 87%,rgba(157,116,56,.32) 87.5%)!important;
+  background-size:34px 58px!important;
+}
+.surah-toolbar{
+  background:rgba(255,255,255,.72);
+  margin:-2px -2px 12px!important;padding:11px 12px!important;border-radius:13px!important;
+  border:1px solid rgba(139,102,54,.12)!important
+}
+.surah-card{
+  background:#fff!important;
+  border:1px solid rgba(115,91,58,.10)!important;
+  border-radius:15px!important;
+  box-shadow:0 6px 18px rgba(55,40,22,.055)!important
+}
+.surah-card.open{
+  box-shadow:0 10px 28px rgba(80,57,28,.09)!important;
+  border-color:rgba(164,119,55,.25)!important
+}
+.surah-head{padding:14px 13px!important}
+.surah-num-modern{
+  background:#f5efe4!important;border-color:rgba(158,115,54,.19)!important;
+  color:#8f6733!important;border-radius:11px!important
+}
+.surah-main b{font-family:Inter,system-ui,sans-serif!important;font-size:16px!important;font-weight:650!important}
+.surah-main small{font-size:10px!important}
+.surah-arabic{font-size:19px!important;color:#8a6334!important}
+.ayah-picker{background:linear-gradient(180deg,#fff,#fbf8f2);padding-bottom:14px!important}
+.ayah-pick{
+  border-radius:9px!important;background:#f7f3eb!important;border-color:rgba(139,100,48,.12)!important;
+  color:#554937!important
+}
+.ayah-pick.current{background:#9b7441!important;color:#fff!important}
+
+/* Advice card remains the only advice surface */
+#inlineTip{transition:opacity .22s,transform .22s}
+.restore-tip{background:transparent!important;border-style:dashed!important}
+
+/* remove any remaining decorative pseudo-star at card borders */
+.arch-card:after,.ornament:after{content:""!important;display:none!important}
+.ornament{display:none!important}
+
+/* compact daily count with guaranteed separation */
+.today-count-wrap{
+  display:flex!important;align-items:flex-end!important;gap:10px!important;min-width:0!important
+}
+.big-number.compact-number{
+  flex:0 0 auto!important;width:auto!important;min-width:34px!important;
+  font-size:38px!important;line-height:1!important;letter-spacing:-.04em!important
+}
+.today-caption{
+  flex:0 1 auto!important;white-space:nowrap!important;padding-bottom:2px!important;font-size:14px!important
+}
+@media(max-width:360px){
+  .big-number.compact-number{font-size:34px!important}
+  .today-caption{font-size:12px!important}
+  .today-row .primary{padding-left:13px!important;padding-right:13px!important}
+}
+
 </style>
 </head>
 <body>
@@ -276,7 +345,7 @@ button{cursor:pointer}
 </section>
 
 <section id="today" class="screen">
-  <div class="header"><div><small>EveryAyah</small><h1>Сегодня</h1></div><div class="gold">✦</div></div>
+  <div class="header"><div><small>EveryAyah</small><h1>Сегодня</h1></div><div class="gold"></div></div>
   <div class="arch-card today-card">
     <div class="eyebrow">Новый материал</div>
     <div class="today-row">
@@ -296,16 +365,16 @@ button{cursor:pointer}
     <div id="inlineTipText">После нового аята обязательно соединяйте его с предыдущим — так память удерживает не только слова, но и переход.</div>
     <div class="tip-hint">Меняется автоматически · нажмите для следующего</div>
   </div>
-  <button id="inlineTipRestore" class="restore-tip" onclick="showInlineTip()" style="display:none">✦ Показать совет хифза</button>
+  <button id="inlineTipRestore" class="restore-tip" onclick="showInlineTip()" style="display:none">Показать совет хифза</button>
 </section>
 
 <section id="surahs" class="screen">
   <div class="header"><div><small>30-й джуз</small><h1>Выберите суру</h1></div><button class="smallbtn" onclick="showSettings()">⚙</button></div>
   <div class="surah-modern-shell">
     <div class="surah-toolbar">
-      <label class="check-line"><input type="checkbox" class="translation-check"> <span>Показывать перевод</span></label>
+      <label class="check-line"><input type="checkbox" class="translation-check"> <span>Перевод</span></label>
       <select class="translation-edition">
-        <option value="ru.kuliev">Э. Кулиев</option>
+        <option value="ru.kuliev">Кулиев</option>
         <option value="ru.abuadel">Абу Адель</option>
       </select>
     </div>
@@ -616,7 +685,7 @@ function showMethod(){
 function showSources(){
  showSheet(`<button class="close" onclick="closeModal()">×</button><h2>Источники и примечания</h2>
  <div class="paper">Методическая основа: материалы о заучивании Корана, предоставленные пользователем, включая Э. Р. Кулиева, М. Ф. Муртазина и S. M. Halilovic.<br><br>
- Арабский текст в MVP загружается из Quran API (quran-uthmani). Аудио по аятам — из открытой коллекции EveryAyah для поддерживаемых чтецов.<br><br>
+ Арабский текст загружается в усманийской разметке. Перевод можно включить отдельно и выбрать Кулиева или Абу Аделя. Аудио по аятам используется из verse-by-verse коллекций EveryAyah.<br><br>
  Религиозные мотивационные карточки должны публиковаться только после проверки текста и источника.</div>`);
 }
 function showSettings(){go('settings')}
@@ -631,23 +700,27 @@ fetch('https://api.alquran.cloud/v1/surah').then(r=>r.json()).then(j=>{
 renderSurahs();renderReciters();refreshStats();
 
 const ROTATING_CARDS=[
- {title:"Совет хифза",text:"После нового аята обязательно соединяйте его с предыдущим. Так укрепляются переходы внутри суры."},
+ {title:"Совет хифза",text:"После нового аята соедините его с предыдущим. Переходы между аятами нужно учить так же внимательно, как сами аяты."},
  {title:"Совет хифза",text:"Перед скрытием текста несколько секунд смотрите на расположение слов и окончание строки."},
- {title:"Совет хифза",text:"Новый материал не должен вытеснять старый: сначала оживите вчерашние аяты."},
- {title:"Совет хифза",text:"Если два места похожи по звучанию, отдельно закрепите именно место различия."},
+ {title:"Совет хифза",text:"Перед новым материалом повторите то, что учили вчера. Новое не должно вытеснять старое."},
+ {title:"Совет хифза",text:"Если два места похожи по звучанию, отдельно закрепите именно место, где они различаются."},
  {title:"Совет хифза",text:"Периодически начинайте уже выученную суру не только с первого аята."},
- {title:"Совет хифза",text:"Использование одного и того же мусхафа помогает зрительной памяти удерживать расположение текста."},
+ {title:"Совет хифза",text:"Один и тот же мусхаф помогает зрительной памяти удерживать расположение текста на странице."},
  {title:"Совет хифза",text:"Учите небольшой отрывок, затем несколько раз соединяйте конец предыдущего аята с началом следующего."},
  {title:"Совет хифза",text:"После прослушивания закройте текст и попробуйте воспроизвести аят, прежде чем снова смотреть на страницу."},
  {title:"Совет хифза",text:"Старые суры должны возвращаться в повторение даже тогда, когда вы уже учите новый материал."},
  {title:"Совет хифза",text:"Если аят даётся тяжело, уменьшите объём занятия, но сохраните регулярность."},
- {title:"Достоинство чтения",text:"В хадисе передано: лучший из мусульман — тот, кто изучает Коран и обучает ему.",source:"Сахих аль-Бухари, 5027"},
- {title:"Достоинство чтения",text:"За чтение каждой буквы Книги Аллаха передана награда, умножаемая в десять раз.",source:"Джами‘ ат-Тирмизи, 2910"},
- {title:"Достоинство чтения",text:"Коран станет заступником для тех, кто был связан с его чтением.",source:"Сахих Муслим, 804a"},
- {title:"Поддержка",text:"Тому, кому чтение Корана даётся с трудом и кто продолжает стараться, в хадисе обещаны две награды.",source:"Аль-Бухари и Муслим; Рияд ас-Салихин, 994"},
- {title:"Напоминание из Корана",text:"Коран велит читать откровение размеренно и отчётливо.",source:"Коран, 73:4"},
- {title:"Напоминание из Корана",text:"Коран описан как руководство к самому прямому пути.",source:"Коран, 17:9"},
- {title:"Напоминание из Корана",text:"В Коране похвально упомянуты те, кто читает Книгу Аллаха, совершает молитву и расходует из дарованного.",source:"Коран, 35:29–30"}
+ {title:"Совет хифза",text:"Сначала добейтесь уверенного чтения короткого фрагмента, затем увеличивайте объём."},
+ {title:"Совет хифза",text:"После нескольких отдельных аятов обязательно прочитайте весь выученный фрагмент подряд."},
+ {title:"Достоинство чтения",text:"Лучший из вас — тот, кто изучает Коран и обучает ему. — Сахих аль-Бухари, 5027."},
+ {title:"Достоинство чтения",text:"За каждую прочитанную букву Книги Аллаха передана награда, умножаемая в десять раз. — Джами‘ ат-Тирмизи, 2910."},
+ {title:"Достоинство чтения",text:"Читайте Коран: в хадисе передано, что в День воскресения он придёт заступником за тех, кто был связан с его чтением. — Сахих Муслим, 804a."},
+ {title:"Поддержка",text:"Тому, кому чтение Корана даётся с трудом и кто продолжает стараться, в достоверном хадисе обещаны две награды. — аль-Бухари и Муслим."},
+ {title:"Напоминание из Корана",text:"«И читай Коран размеренным чтением». — Коран, 73:4."},
+ {title:"Напоминание из Корана",text:"Коран ведёт к самому прямому пути. — Коран, 17:9."},
+ {title:"Напоминание из Корана",text:"В Коране похвально упомянуты те, кто читает Книгу Аллаха, совершает молитву и расходует из дарованного. — Коран, 35:29–30."},
+ {title:"Напоминание из Корана",text:"Аллах сообщает, что сделал Коран лёгким для поминания и назидания. — Коран, 54:17."},
+ {title:"Из тафсира",text:"В толковании 54:17 передаётся: Аллах облегчил слова Корана для запоминания и чтения, а его смыслы — для понимания тому, кто стремится к знанию. — тафсир ас-Са‘ди."}
 ];
 let inlineTipIndex=0;
 function rotateInlineTip(){
@@ -671,8 +744,6 @@ function showInlineTip(){
 setInterval(rotateInlineTip,18000);
 
 state.opens=(state.opens||0)+1;
-state.cardCursor=state.cardCursor||0;
-state.snoozeUntil=state.snoozeUntil||0;
 state.inlineTipHidden=!!state.inlineTipHidden;
 state.showTranslation=state.showTranslation!==false;
 state.translationEdition=state.translationEdition||"ru.kuliev";
@@ -690,25 +761,9 @@ function syncTranslationControls(){
 syncTranslationControls();
 if(state.inlineTipHidden)hideInlineTip(); else showInlineTip();
 
-function canScheduledCard(){
- return Date.now()>state.snoozeUntil && audio.paused &&
- !document.getElementById("learn").classList.contains("active") &&
- !document.getElementById("modal").classList.contains("show");
-}
-function showScheduledCard(){
- if(!canScheduledCard())return setTimeout(showScheduledCard,22000);
- const c=ROTATING_CARDS[state.cardCursor++ % ROTATING_CARDS.length];save();
- const src=c.source?`<div class="source">Источник: ${c.source}</div>`:"";
- showSheet(`<button class="close" onclick="closeModal()">×</button><h2>${c.title}</h2><div class="paper">${c.text}${src}</div><div class="row" style="margin-top:14px"><button class="secondary" onclick="closeModal()">Закрыть</button><button class="secondary" onclick="snoozeAdvice(3)">Пауза 3 дня</button></div>`);
-}
-function snoozeAdvice(days){state.snoozeUntil=Date.now()+days*86400000;save();closeModal()}
 
-/* Two early appearances; then gradually rarer. Never interrupts Quran/audio. */
-if(Date.now()>state.snoozeUntil){
- if(state.opens===1){setTimeout(showScheduledCard,15000);setTimeout(showScheduledCard,80000)}
- else if(state.opens<=3){setTimeout(showScheduledCard,38000)}
- else if(state.opens%4===0){setTimeout(showScheduledCard,55000)}
-}
+
+
 </script>
 </body>
 </html>
