@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>EveryAyah — Аят за аятом</title>
-<meta name="everyayah-version" content="v5-v1-quran-loader">
+<meta name="everyayah-build" content="V1-READING-PAGE+TRANSLATION+TANZIL-CYRILLIC-TRANSCRIPTION+MINSHAVI">
 <meta name="theme-color" content="#08120f">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -322,23 +322,64 @@ button{cursor:pointer}
 }
 
 
-/* V1 Quran text restored */
-.ayah,.ayah.madani,.ayah.amiri,.ayah.naskh{
+/* ===== Reading page locked to MVP V1 ===== */
+#learn .ayah{
   font-family:"Noto Naskh Arabic",serif!important;
   direction:rtl!important;
   font-size:38px!important;
   line-height:1.95!important;
   font-weight:500!important;
   color:#f1e4ca!important;
+  letter-spacing:0!important;
 }
-.ar-small{
-  font-family:"Noto Naskh Arabic",serif!important;
-  font-size:23px!important;
-  font-weight:500!important;
+#learn .ayah-box{
+  min-height:310px!important;
+  border-radius:30px 30px 18px 18px!important;
+  background:
+    radial-gradient(circle at 50% 12%,rgba(199,157,83,.08),transparent 30%),
+    linear-gradient(180deg,#15251e,#0c1814)!important;
+  padding:28px 20px!important;
 }
+#learn .player{border-radius:18px!important}
+#learn .field{border-radius:14px!important}
 @media(max-width:420px){
-  .ayah,.ayah.madani,.ayah.amiri,.ayah.naskh{font-size:34px!important}
+  #learn .ayah{font-size:34px!important}
 }
+
+
+/* ===== Minimal translation add-on for the V1 reading page ===== */
+.v1-translation-bar{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  margin:10px 0 12px;padding:9px 11px;
+  border:1px solid var(--line);border-radius:14px;
+  background:#0d1a16;
+}
+.v1-translation-toggle{display:flex;align-items:center;gap:8px;color:#d8c7a7;font-size:12px}
+.v1-translation-toggle input{accent-color:#b99150;width:16px;height:16px}
+#translationEdition{
+  border:0;outline:0;background:transparent;color:#d7b878;
+  font-size:12px;max-width:135px
+}
+#translationEdition option{background:#0d1a16;color:#e7d7b8}
+.v1-translation-text{
+  display:none;width:100%;margin-top:19px;padding-top:16px;
+  border-top:1px solid rgba(201,166,96,.18);
+  color:#c9bea9;font-family:Georgia,"Times New Roman",serif;
+  font-size:15px;line-height:1.65;text-align:left;direction:ltr
+}
+.v1-translation-text.show{display:block}
+#learn .ayah-box{flex-direction:column!important}
+
+
+/* Minimal Russian study transcription — no extra network request */
+.v1-transcription{
+  display:none;width:100%;margin-top:10px;padding-top:10px;
+  border-top:1px dashed rgba(201,166,96,.14);
+  color:#a99d88;font-family:Inter,system-ui,sans-serif;
+  font-size:13px;line-height:1.6;text-align:left;direction:ltr;
+  font-style:italic
+}
+.v1-transcription.show{display:block}
 
 </style>
 </head>
@@ -408,9 +449,22 @@ button{cursor:pointer}
     <div class="field"><label>Повторов аята</label><select id="repeatSel"><option>1</option><option>3</option><option selected>5</option><option>7</option><option>10</option><option>15</option></select></div>
     <div class="field"><label>Пауза</label><select id="pauseSel"><option value="0">Нет</option><option value="2">2 сек</option><option value="3">3 сек</option><option value="5" selected>5 сек</option><option value="10">10 сек</option></select></div>
   </div>
-<div class="ayah-box">
+  <div class="v1-translation-bar">
+    <label class="v1-translation-toggle">
+      <input type="checkbox" id="showTranslation">
+      <span>Перевод</span>
+    </label>
+    <select id="translationEdition">
+      <option value="ru.kuliev">Кулиев</option>
+      <option value="ru.abuadel">Абу Адель</option>
+    </select>
+  </div>
+
+  <div class="ayah-box">
     <div class="ayah-meta" id="ayahMeta">Загрузка…</div>
     <div class="ayah" id="ayahText">...</div>
+    <div class="v1-translation-text" id="translationText"></div>
+    <div class="v1-transcription" id="transcriptionText"></div>
   </div>
   <div class="player">
     <div class="playerTop">
@@ -504,7 +558,7 @@ const FALLBACK=[
 ].map(x=>({number:x[0],ru:x[1],arabic:x[2],ayahs:x[3]}));
 
 const RECITERS=[
- {id:"luhaidan",name:"Мухаммад аль-Люхайдан",note:"Основной · цельные суры",type:"chapter"},
+ {id:"minshawi",name:"Мухаммад Сиддик аль-Миншави",note:"Размеренное чтение · аят за аятом",folder:"Minshawy_Murattal_128kbps",type:"ayah"},
  {id:"alafasy",name:"Мишари Рашид аль-Афаси",note:"Основной · аят за аятом",folder:"Alafasy_128kbps",type:"ayah"},
  {id:"husary",name:"Махмуд Халиль аль-Хусари",note:"Рекомендуется для хифза",folder:"Husary_128kbps",type:"ayah"},
  {id:"shatri",name:"Абу Бакр аш-Шатри",note:"Дополнительный",folder:"Abu_Bakr_Ash-Shaatree_128kbps",type:"ayah"},
@@ -525,7 +579,7 @@ const VIRTUES=[
 let surahs=[...FALLBACK], currentSurah=null,currentAyah=1,ayahData=[],playing=false,auto=false,repeatDone=0,sessionStarted=false;
 const audio=document.getElementById('audio');
 const state=JSON.parse(localStorage.getItem('everyayah_state')||'{}');
-state.reciter=state.reciter||'alafasy'; if(!RECITERS.some(r=>r.id===state.reciter)) state.reciter='alafasy';state.sessions=state.sessions||0;state.progress=state.progress||{};state.lastSurah=state.lastSurah||114;state.lastAyah=state.lastAyah||1;
+state.reciter=state.reciter||'alafasy'; if(state.reciter==='luhaidan') state.reciter='minshawi'; if(!RECITERS.some(r=>r.id===state.reciter)) state.reciter='alafasy';state.sessions=state.sessions||0;state.progress=state.progress||{};state.lastSurah=state.lastSurah||114;state.lastAyah=state.lastAyah||1;
 
 function save(){localStorage.setItem('everyayah_state',JSON.stringify(state));refreshStats()}
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600)}
@@ -580,9 +634,8 @@ function renderReciters(){
 }
 async function openSurah(n){
  currentSurah=surahs.find(s=>s.number===n);
- currentAyah=state.pendingAyah || (state.progress[n]&&state.progress[n].ayah) || 1;
+ currentAyah=state.pendingAyah || (state.progress[n]&&state.progress[n].ayah)||1;
  state.pendingAyah=null;
-
  document.getElementById('learnSurahNo').textContent=`Сура ${n} · ${currentSurah.ayahs} аятов`;
  document.getElementById('learnSurahName').textContent=currentSurah.ru;
  go('learn');
@@ -590,56 +643,129 @@ async function openSurah(n){
  document.getElementById('ayahText').textContent='Загрузка…';
  document.getElementById('translationText').textContent='';
 
- /* IMPORTANT:
-    Arabic Quran is loaded independently.
-    A translation failure must NEVER block the Quran text. */
+ // V1 Quran loader — Arabic first, independently.
  try{
-   const arRes=await fetch(`https://api.alquran.cloud/v1/surah/${n}/quran-uthmani`);
-   if(!arRes.ok) throw new Error(`Arabic HTTP ${arRes.status}`);
-   const ar=await arRes.json();
-
-   ayahData=(ar.data?.ayahs||[]).map(a=>({
-     n:a.numberInSurah,
-     text:a.text,
-     translation:''
-   }));
-
-   /* Show Quran immediately, exactly like V1. */
+   const r=await fetch(`https://api.alquran.cloud/v1/surah/${n}/quran-uthmani`);
+   const j=await r.json();
+   ayahData=j.data.ayahs.map(a=>({n:a.numberInSurah,text:a.text,translation:'',transcription:''}));
    renderAyah();
    loadAudio();
+   // Independent transcription request; it cannot block Arabic Quran or translation.
+   loadSourceTransliterationForCurrentSurah();
  }catch(e){
-   console.error('Arabic Quran load error:',e);
    ayahData=[];
    document.getElementById('ayahText').textContent='Не удалось загрузить текст Корана';
-   toast('Не удалось загрузить арабский текст. Проверьте интернет.');
+   toast('Не удалось загрузить текст. Проверьте интернет.');
    return;
  }
 
- /* Translation is an optional second request.
-    If it fails, Arabic remains fully usable. */
+ // Translation is optional and cannot block Arabic Quran.
  if(state.showTranslation){
-   try{
-     const trRes=await fetch(`https://api.alquran.cloud/v1/surah/${n}/${state.translationEdition}`);
-     if(!trRes.ok) throw new Error(`Translation HTTP ${trRes.status}`);
-     const tr=await trRes.json();
-     const transMap=new Map((tr.data?.ayahs||[]).map(a=>[a.numberInSurah,a.text]));
-     ayahData=ayahData.map(a=>({...a,translation:transMap.get(a.n)||''}));
-     renderAyah();
-   }catch(e){
-     console.warn('Translation load error:',e);
-     document.getElementById('translationText').textContent='';
-   }
+   await loadTranslationForCurrentSurah();
  }
 }
+
+function latinTransliterationToCyrillic(src){
+ if(!src)return "";
+
+ let s=src
+   .normalize("NFD")
+   .replace(/[\u0300-\u036f]/g,"")
+   .replace(/ā/g,"aa").replace(/ī/g,"ii").replace(/ū/g,"uu")
+   .replace(/Ā/g,"Aa").replace(/Ī/g,"Ii").replace(/Ū/g,"Uu")
+   .replace(/ʿ/g,"‘").replace(/ʾ/g,"’")
+   .replace(/`/g,"‘")
+   .replace(/\s+/g," ")
+   .trim()
+   .toLowerCase();
+
+ // Longer combinations first.
+ const pairs=[
+   ["kh","х"],["gh","г"],["sh","ш"],["ch","ч"],
+   ["th","с"],["dh","з"],["ph","ф"],
+   ["aa","аа"],["ii","ии"],["ee","ии"],["oo","уу"],["uu","уу"],
+   ["ay","ай"],["ai","ай"],["aw","ау"],["au","ау"],
+   ["ya","я"],["yu","ю"],["yi","йи"]
+ ];
+ for(const [a,b] of pairs) s=s.split(a).join(b);
+
+ const chars={
+   "a":"а","b":"б","c":"к","d":"д","e":"э","f":"ф","g":"г",
+   "h":"х","i":"и","j":"дж","k":"к","l":"л","m":"м","n":"н",
+   "o":"о","p":"п","q":"к","r":"р","s":"с","t":"т","u":"у",
+   "v":"в","w":"у","x":"кс","y":"й","z":"з"
+ };
+
+ let out="";
+ for(const ch of s){
+   out += (chars[ch]!==undefined ? chars[ch] : ch);
+ }
+
+ // Readability cleanup only; do not alter the Arabic or translation data.
+ out=out
+   .replace(/\s+/g," ")
+   .replace(/ааа+/g,"аа")
+   .replace(/иии+/g,"ии")
+   .replace(/ууу+/g,"уу")
+   .replace(/‘+/g,"‘")
+   .replace(/’+/g,"’")
+   .trim();
+
+ // Guarantee no Latin letters remain in the displayed transcription.
+ out=out.replace(/[A-Za-z]/g,"");
+ return out;
+}
+
+async function loadSourceTransliterationForCurrentSurah(){
+ if(!currentSurah || !ayahData.length)return;
+
+ try{
+   // quran-json sources its Quran transliteration from Tanzil.net.
+   // This request is ONLY for transliteration; Arabic Quran and Russian translation
+   // continue to use their existing sources unchanged.
+   const r=await fetch(`https://cdn.jsdelivr.net/npm/quran-json@3.1.2/dist/chapters/${currentSurah.number}.json`);
+   if(!r.ok) throw new Error(`Transliteration HTTP ${r.status}`);
+   const j=await r.json();
+
+   const verses=j.verses || j.ayahs || [];
+   const map=new Map(
+     verses.map((v,idx)=>[
+       Number(v.id ?? v.verse ?? v.number ?? (idx+1)),
+       v.transliteration || v.transcription || ""
+     ])
+   );
+
+   ayahData=ayahData.map(a=>({
+     ...a,
+     transcription: latinTransliterationToCyrillic(map.get(a.n)||"")
+   }));
+   renderAyah();
+ }catch(e){
+   console.warn("Transliteration source unavailable:",e);
+   // No fabricated fallback: if the trusted source is unavailable,
+   // leave the transcription blank rather than inventing it.
+   ayahData=ayahData.map(a=>({...a,transcription:""}));
+   renderAyah();
+ }
+}
+
 function renderAyah(){
  const a=ayahData.find(x=>x.n===currentAyah);
  document.getElementById('ayahMeta').textContent=`${currentSurah?currentSurah.ru:''} · аят ${currentAyah}`;
- const ay=document.getElementById('ayahText');
- ay.textContent=a?a.text:'Текст аята загружается из проверенного источника';
- ay.className='ayah madani'+(ay.classList.contains('hidden')?' hidden':'');
+ document.getElementById('ayahText').textContent=a?a.text:'Текст аята загружается из проверенного источника';
+
  const tr=document.getElementById('translationText');
- tr.textContent=a?.translation||'';
- tr.classList.toggle('show',!!state.showTranslation && !!a?.translation);
+ if(tr){
+   tr.textContent=a?.translation||'';
+   tr.classList.toggle('show',!!state.showTranslation && !!a?.translation);
+ }
+
+ const tx=document.getElementById('transcriptionText');
+ if(tx){
+   tx.textContent=a?.transcription || '';
+   tx.classList.toggle('show',!!state.showTranslation && !!a?.transcription);
+ }
+
  document.getElementById('repeatPill').textContent=`повтор ${repeatDone} / ${document.getElementById('repeatSel').value}`;
  document.getElementById('reciterLabel').textContent=reciter().name;
  state.lastSurah=currentSurah?.number||state.lastSurah;state.lastAyah=currentAyah;
@@ -651,14 +777,13 @@ function ayahUrl(){
  return `https://everyayah.com/data/${r.folder}/${String(currentSurah.number).padStart(3,'0')}${String(currentAyah).padStart(3,'0')}.mp3`;
 }
 function loadAudio(){
- audio.pause(); playing=false; document.getElementById('playBtn').textContent='▶'; repeatDone=0;
+ audio.pause();playing=false;document.getElementById('playBtn').textContent='▶';repeatDone=0;
  const url=ayahUrl();
  if(url){audio.src=url;audio.load()}else{audio.removeAttribute('src');audio.load()}
  renderAyah();
 }
 function togglePlay(){
  if(!currentSurah)return;
- if(reciter().type!=='ayah'){toast('Для Люхайдана нужен отдельный источник аудио по аятам.');return}
  if(audio.paused){audio.play().catch(()=>toast('Не удалось запустить аудио. Проверьте интернет.'));}else audio.pause();
 }
 function toggleAyah(){document.getElementById('ayahText').classList.toggle('hidden')}
@@ -666,10 +791,9 @@ function prevAyah(){if(currentAyah>1){currentAyah--;loadAudio()}}
 function nextAyah(){if(currentSurah&&currentAyah<currentSurah.ayahs){currentAyah++;loadAudio()}else toast('Конец суры')}
 function startAuto(){
  if(!currentSurah)return;
- if(reciter().type!=='ayah'){toast('Для автоматического повторения выберите Аль-Афаси, Аль-Хусари, Аш-Шатри или Абдул-Басита.');return}
  auto=!auto;
  document.getElementById('autoBtn').textContent=auto?'ОСТАНОВИТЬ АВТОРЕЖИМ':'УЧИТЬ АВТОМАТИЧЕСКИ';
- if(auto){repeatDone=0;audio.currentTime=0;audio.play().catch(()=>toast('Не удалось запустить аудио'));}else audio.pause();
+ if(auto){repeatDone=0;sessionStarted=true;audio.currentTime=0;audio.play().catch(()=>toast('Не удалось запустить аудио'))}else audio.pause();
 }
 audio.addEventListener('play',()=>{playing=true;document.getElementById('playBtn').textContent='Ⅱ'});
 audio.addEventListener('pause',()=>{playing=false;document.getElementById('playBtn').textContent='▶'});
@@ -742,6 +866,52 @@ fetch('https://api.alquran.cloud/v1/surah').then(r=>r.json()).then(j=>{
  if(meta.length===37)surahs=FALLBACK.map(f=>{const m=meta.find(x=>x.number===f.number);return {...f,arabic:m?.name||f.arabic,ayahs:m?.numberOfAyahs||f.ayahs}});
  renderSurahs();
 }).catch(()=>renderSurahs());
+
+
+state.showTranslation = !!state.showTranslation;
+state.translationEdition = state.translationEdition || 'ru.kuliev';
+
+async function loadTranslationForCurrentSurah(){
+ if(!currentSurah || !state.showTranslation)return;
+ const trEl=document.getElementById('translationText');
+ if(trEl){trEl.textContent='Загрузка перевода…';trEl.classList.add('show')}
+ try{
+   const r=await fetch(`https://api.alquran.cloud/v1/surah/${currentSurah.number}/${state.translationEdition}`);
+   const j=await r.json();
+   const map=new Map((j.data?.ayahs||[]).map(a=>[a.numberInSurah,a.text]));
+   ayahData=ayahData.map(a=>({...a,translation:map.get(a.n)||''}));
+   renderAyah();
+ }catch(e){
+   if(trEl){trEl.textContent='Перевод временно недоступен';trEl.classList.add('show')}
+ }
+}
+
+const showTranslationEl=document.getElementById('showTranslation');
+const translationEditionEl=document.getElementById('translationEdition');
+
+if(showTranslationEl){
+ showTranslationEl.checked=state.showTranslation;
+ showTranslationEl.addEventListener('change',async e=>{
+   state.showTranslation=e.target.checked;save();
+   if(!state.showTranslation){
+     const tr=document.getElementById('translationText');
+     if(tr)tr.classList.remove('show');
+   }else if(currentSurah){
+     const hasTranslation=ayahData.some(a=>a.translation);
+     if(hasTranslation)renderAyah(); else await loadTranslationForCurrentSurah();
+   }
+ });
+}
+if(translationEditionEl){
+ translationEditionEl.value=state.translationEdition;
+ translationEditionEl.addEventListener('change',async e=>{
+   state.translationEdition=e.target.value;save();
+   if(currentSurah && state.showTranslation){
+     ayahData=ayahData.map(a=>({...a,translation:''}));
+     await loadTranslationForCurrentSurah();
+   }
+ });
+}
 
 renderSurahs();renderReciters();refreshStats();
 
