@@ -321,32 +321,22 @@ button{cursor:pointer}
 }
 
 
-/* ===== Quran typography restored from MVP v2 ===== */
-.ayah{
-  direction:rtl;
-  font-weight:400!important;
-  line-height:2.15!important;
-  letter-spacing:0!important;
+/* V1 Quran text restored */
+.ayah,.ayah.madani,.ayah.amiri,.ayah.naskh{
+  font-family:"Noto Naskh Arabic",serif!important;
+  direction:rtl!important;
+  font-size:38px!important;
+  line-height:1.95!important;
+  font-weight:500!important;
+  color:#f1e4ca!important;
 }
-.ayah.madani{
-  font-family:"KFGQPC Uthmanic Script HAFS","Amiri Quran",serif!important;
-  font-size:29px!important;
-  font-weight:400!important;
-}
-.ayah.amiri{
-  font-family:"Amiri Quran",serif!important;
-  font-size:30px!important;
-  font-weight:400!important;
-}
-.ayah.naskh{
-  font-family:"Scheherazade New","Noto Naskh Arabic",serif!important;
-  font-size:31px!important;
-  font-weight:400!important;
+.ar-small{
+  font-family:"Noto Naskh Arabic",serif!important;
+  font-size:23px!important;
+  font-weight:500!important;
 }
 @media(max-width:420px){
-  .ayah.madani{font-size:28px!important}
-  .ayah.amiri{font-size:29px!important}
-  .ayah.naskh{font-size:30px!important}
+  .ayah,.ayah.madani,.ayah.amiri,.ayah.naskh{font-size:34px!important}
 }
 
 </style>
@@ -416,14 +406,6 @@ button{cursor:pointer}
   <div class="controls">
     <div class="field"><label>Повторов аята</label><select id="repeatSel"><option>1</option><option>3</option><option selected>5</option><option>7</option><option>10</option><option>15</option></select></div>
     <div class="field"><label>Пауза</label><select id="pauseSel"><option value="0">Нет</option><option value="2">2 сек</option><option value="3">3 сек</option><option value="5" selected>5 сек</option><option value="10">10 сек</option></select></div>
-  </div>
-  <div class="field" style="margin:12px 0">
-    <label>Шрифт Корана</label>
-    <select id="fontSel">
-      <option value="madani" selected>Мединская пропись</option>
-      <option value="amiri">Amiri Quran</option>
-      <option value="naskh">Тонкий насх</option>
-    </select>
   </div>
 <div class="ayah-box">
     <div class="ayah-meta" id="ayahMeta">Загрузка…</div>
@@ -521,10 +503,10 @@ const FALLBACK=[
 ].map(x=>({number:x[0],ru:x[1],arabic:x[2],ayahs:x[3]}));
 
 const RECITERS=[
- {id:"alafasy",name:"Мишари Рашид аль-Афаси",note:"Основной",folder:"Alafasy_128kbps",type:"ayah"},
+ {id:"luhaidan",name:"Мухаммад аль-Люхайдан",note:"Основной · цельные суры",type:"chapter"},
+ {id:"alafasy",name:"Мишари Рашид аль-Афаси",note:"Основной · аят за аятом",folder:"Alafasy_128kbps",type:"ayah"},
  {id:"husary",name:"Махмуд Халиль аль-Хусари",note:"Рекомендуется для хифза",folder:"Husary_128kbps",type:"ayah"},
- {id:"minshawi",name:"Мухаммад Сиддик аль-Миншави",note:"Размеренное чтение",folder:"Minshawy_Murattal_128kbps",type:"ayah"},
- {id:"sudais",name:"Абдуррахман ас-Судайс",note:"Дополнительный",folder:"Abdurrahmaan_As-Sudais_192kbps",type:"ayah"},
+ {id:"shatri",name:"Абу Бакр аш-Шатри",note:"Дополнительный",folder:"Abu_Bakr_Ash-Shaatree_128kbps",type:"ayah"},
  {id:"basit",name:"Абдул-Басит Абдус-Самад",note:"Дополнительный",folder:"Abdul_Basit_Murattal_192kbps",type:"ayah"}
 ];
 const TIPS=[
@@ -606,30 +588,24 @@ async function openSurah(n){
  document.getElementById('translationText').textContent='';
  try{
    const [arRes,trRes]=await Promise.all([
-     fetch(`https://alquran.api.islamic.network/v1/surah/${n}/quran-uthmani`),
-     fetch(`https://alquran.api.islamic.network/v1/surah/${n}/${state.translationEdition}`)
+     fetch(`https://api.alquran.cloud/v1/surah/${n}/quran-uthmani`),
+     fetch(`https://api.alquran.cloud/v1/surah/${n}/${state.translationEdition}`)
    ]);
-   const ar=await arRes.json(); const tr=await trRes.json();
-   const transMap=new Map((tr.data?.ayahs||[]).map(a=>[a.numberInSurah,a.text]));
-   ayahData=(ar.data?.ayahs||[]).map(a=>({n:a.numberInSurah,text:a.text,translation:transMap.get(a.numberInSurah)||''}));
+   const ar=await arRes.json(), tr=await trRes.json();
+   const tm=new Map((tr.data?.ayahs||[]).map(a=>[a.numberInSurah,a.text]));
+   ayahData=(ar.data?.ayahs||[]).map(a=>({n:a.numberInSurah,text:a.text,translation:tm.get(a.numberInSurah)||''}));
  }catch(e){
-   try{
-     const arRes=await fetch(`https://api.alquran.cloud/v1/surah/${n}/quran-uthmani`);
-     const ar=await arRes.json();
-     const trRes=await fetch(`https://api.alquran.cloud/v1/surah/${n}/${state.translationEdition}`);
-     const tr=await trRes.json();
-     const transMap=new Map((tr.data?.ayahs||[]).map(a=>[a.numberInSurah,a.text]));
-     ayahData=(ar.data?.ayahs||[]).map(a=>({n:a.numberInSurah,text:a.text,translation:transMap.get(a.numberInSurah)||''}));
-   }catch(e2){ayahData=[];toast('Не удалось загрузить текст. Проверьте интернет.')}
+   ayahData=[];
+   toast('Не удалось загрузить текст. Проверьте интернет.');
  }
- renderAyah();loadAudio();
+ renderAyah(); loadAudio();
 }
 function renderAyah(){
  const a=ayahData.find(x=>x.n===currentAyah);
  document.getElementById('ayahMeta').textContent=`${currentSurah?currentSurah.ru:''} · аят ${currentAyah}`;
  const ay=document.getElementById('ayahText');
  ay.textContent=a?a.text:'Текст аята загружается из проверенного источника';
- ay.className='ayah '+state.font+(ay.classList.contains('hidden')?' hidden':'');
+ ay.className='ayah madani'+(ay.classList.contains('hidden')?' hidden':'');
  const tr=document.getElementById('translationText');
  tr.textContent=a?.translation||'';
  tr.classList.toggle('show',!!state.showTranslation && !!a?.translation);
@@ -644,13 +620,14 @@ function ayahUrl(){
  return `https://everyayah.com/data/${r.folder}/${String(currentSurah.number).padStart(3,'0')}${String(currentAyah).padStart(3,'0')}.mp3`;
 }
 function loadAudio(){
- audio.pause();playing=false;document.getElementById('playBtn').textContent='▶';repeatDone=0;
+ audio.pause(); playing=false; document.getElementById('playBtn').textContent='▶'; repeatDone=0;
  const url=ayahUrl();
  if(url){audio.src=url;audio.load()}else{audio.removeAttribute('src');audio.load()}
  renderAyah();
 }
 function togglePlay(){
  if(!currentSurah)return;
+ if(reciter().type!=='ayah'){toast('Для Люхайдана нужен отдельный источник аудио по аятам.');return}
  if(audio.paused){audio.play().catch(()=>toast('Не удалось запустить аудио. Проверьте интернет.'));}else audio.pause();
 }
 function toggleAyah(){document.getElementById('ayahText').classList.toggle('hidden')}
@@ -658,9 +635,10 @@ function prevAyah(){if(currentAyah>1){currentAyah--;loadAudio()}}
 function nextAyah(){if(currentSurah&&currentAyah<currentSurah.ayahs){currentAyah++;loadAudio()}else toast('Конец суры')}
 function startAuto(){
  if(!currentSurah)return;
+ if(reciter().type!=='ayah'){toast('Для автоматического повторения выберите Аль-Афаси, Аль-Хусари, Аш-Шатри или Абдул-Басита.');return}
  auto=!auto;
  document.getElementById('autoBtn').textContent=auto?'ОСТАНОВИТЬ АВТОРЕЖИМ':'УЧИТЬ АВТОМАТИЧЕСКИ';
- if(auto){repeatDone=0;sessionStarted=true;audio.currentTime=0;audio.play().catch(()=>toast('Не удалось запустить аудио'))}else audio.pause();
+ if(auto){repeatDone=0;audio.currentTime=0;audio.play().catch(()=>toast('Не удалось запустить аудио'));}else audio.pause();
 }
 audio.addEventListener('play',()=>{playing=true;document.getElementById('playBtn').textContent='Ⅱ'});
 audio.addEventListener('pause',()=>{playing=false;document.getElementById('playBtn').textContent='▶'});
@@ -785,18 +763,6 @@ state.inlineTipHidden=!!state.inlineTipHidden;
 state.showTranslation=state.showTranslation!==false;
 state.translationEdition=state.translationEdition||"ru.kuliev";
 save();
-
-state.font=state.font||"madani";
-const fontSel=document.getElementById("fontSel");
-if(fontSel){
-  fontSel.value=state.font;
-  fontSel.addEventListener("change",e=>{
-    state.font=e.target.value;
-    save();
-    renderAyah();
-  });
-}
-
 
 function syncTranslationControls(){
  document.querySelectorAll(".translation-check").forEach(c=>{c.checked=state.showTranslation;c.onchange=()=>{
