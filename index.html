@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>EveryAyah — Аят за аятом</title>
+<meta name="everyayah-version" content="v5-v1-quran-loader">
 <meta name="theme-color" content="#08120f">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -581,24 +582,54 @@ async function openSurah(n){
  currentSurah=surahs.find(s=>s.number===n);
  currentAyah=state.pendingAyah || (state.progress[n]&&state.progress[n].ayah) || 1;
  state.pendingAyah=null;
+
  document.getElementById('learnSurahNo').textContent=`Сура ${n} · ${currentSurah.ayahs} аятов`;
  document.getElementById('learnSurahName').textContent=currentSurah.ru;
  go('learn');
- document.getElementById('ayahText').textContent='Загрузка текста из проверенного источника…';
+
+ document.getElementById('ayahText').textContent='Загрузка…';
  document.getElementById('translationText').textContent='';
+
+ /* IMPORTANT:
+    Arabic Quran is loaded independently.
+    A translation failure must NEVER block the Quran text. */
  try{
-   const [arRes,trRes]=await Promise.all([
-     fetch(`https://api.alquran.cloud/v1/surah/${n}/quran-uthmani`),
-     fetch(`https://api.alquran.cloud/v1/surah/${n}/${state.translationEdition}`)
-   ]);
-   const ar=await arRes.json(), tr=await trRes.json();
-   const tm=new Map((tr.data?.ayahs||[]).map(a=>[a.numberInSurah,a.text]));
-   ayahData=(ar.data?.ayahs||[]).map(a=>({n:a.numberInSurah,text:a.text,translation:tm.get(a.numberInSurah)||''}));
+   const arRes=await fetch(`https://api.alquran.cloud/v1/surah/${n}/quran-uthmani`);
+   if(!arRes.ok) throw new Error(`Arabic HTTP ${arRes.status}`);
+   const ar=await arRes.json();
+
+   ayahData=(ar.data?.ayahs||[]).map(a=>({
+     n:a.numberInSurah,
+     text:a.text,
+     translation:''
+   }));
+
+   /* Show Quran immediately, exactly like V1. */
+   renderAyah();
+   loadAudio();
  }catch(e){
+   console.error('Arabic Quran load error:',e);
    ayahData=[];
-   toast('Не удалось загрузить текст. Проверьте интернет.');
+   document.getElementById('ayahText').textContent='Не удалось загрузить текст Корана';
+   toast('Не удалось загрузить арабский текст. Проверьте интернет.');
+   return;
  }
- renderAyah(); loadAudio();
+
+ /* Translation is an optional second request.
+    If it fails, Arabic remains fully usable. */
+ if(state.showTranslation){
+   try{
+     const trRes=await fetch(`https://api.alquran.cloud/v1/surah/${n}/${state.translationEdition}`);
+     if(!trRes.ok) throw new Error(`Translation HTTP ${trRes.status}`);
+     const tr=await trRes.json();
+     const transMap=new Map((tr.data?.ayahs||[]).map(a=>[a.numberInSurah,a.text]));
+     ayahData=ayahData.map(a=>({...a,translation:transMap.get(a.n)||''}));
+     renderAyah();
+   }catch(e){
+     console.warn('Translation load error:',e);
+     document.getElementById('translationText').textContent='';
+   }
+ }
 }
 function renderAyah(){
  const a=ayahData.find(x=>x.n===currentAyah);
